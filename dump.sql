@@ -26,6 +26,6 @@ CREATE TABLE "music_genres" (
 );
 
 
-ALTER TABLE "music genres" ADD CONSTRAINT "music genres_fk0" FOREIGN KEY ("music_id") REFERENCES "musics"("id");
+ALTER TABLE "music_genres" ADD CONSTRAINT "music_genres_fk0" FOREIGN KEY ("music_id") REFERENCES "musics"("id");
 
-ALTER TABLE "music genres" ADD CONSTRAINT "music genres_fk1" FOREIGN KEY ("genre_id") REFERENCES "genres"("id");
+ALTER TABLE "music_genres" ADD CONSTRAINT "music_genres_fk1" FOREIGN KEY ("genre_id") REFERENCES "genres"("id");
