@@ -2,11 +2,15 @@ import * as genreRepository from '../repositories/genreRepository.js';
 import * as genreSchema from '../schemas/genreSchema.js';
 
 const createGenre = async ({ name }) => {
-  const validation = genreSchema.createGenre({ name });
+  const validation = genreSchema.createGenre.validate({ name });
 
   if (validation.error) return -1;
 
-  await genreRepository.createGenre({ name });
+  const capitalizedName = name.replace(/(^\w|\s\w)/g, (letter) =>
+    letter.toUpperCase()
+  );
+
+  await genreRepository.createGenre({ name: capitalizedName });
 
   return 1;
 };
