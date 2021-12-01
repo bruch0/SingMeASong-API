@@ -9,10 +9,19 @@ const musicExists = async ({ link }) => {
   return Boolean(musics.rowCount);
 };
 
-const createMusic = async ({ name, link }) => {
-  await connection.query(
-    'INSERT INTO musics (name, link, score) VALUES ($1, $2, 0)',
+const createMusic = async ({ name, link, genres }) => {
+  const resultId = await connection.query(
+    'INSERT INTO musics (name, link, score) VALUES ($1, $2, 0) RETURNING id',
     [name, link]
+  );
+
+  const id = resultId.rows[0].id;
+
+  genres.forEach((genre) =>
+    connection.query(
+      'INSERT INTO music_genres (music_id, genre_id) VALUES ($1, $2)',
+      [id, genre]
+    )
   );
 
   return true;
