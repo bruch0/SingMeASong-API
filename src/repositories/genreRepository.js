@@ -15,4 +15,10 @@ const createGenre = async ({ name }) => {
   return true;
 };
 
-export { genreExists, createGenre };
+const getGenres = async () => {
+  const genres = await connection.query('SELECT * FROM genres');
+
+  return genres.rows;
+};
+
+export { genreExists, createGenre, getGenres };
