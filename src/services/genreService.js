@@ -21,4 +21,10 @@ const createGenre = async ({ name }) => {
   return 1;
 };
 
-export { createGenre };
+const getGenres = async () => {
+  const genres = genreRepository.getGenres();
+
+  return genres;
+};
+
+export { createGenre, getGenres };
