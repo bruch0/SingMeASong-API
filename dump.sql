@@ -1,4 +1,4 @@
-CREATE TABLE "public.genres" (
+CREATE TABLE "genres" (
 	"id" serial NOT NULL,
 	"name" varchar(255) NOT NULL,
 	CONSTRAINT "genres_pk" PRIMARY KEY ("id")
@@ -6,7 +6,7 @@ CREATE TABLE "public.genres" (
   OIDS=FALSE
 );
 
-CREATE TABLE "public.musics" (
+CREATE TABLE "musics" (
 	"id" serial NOT NULL,
 	"name" varchar(255) NOT NULL,
 	"link" varchar(255) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE "public.musics" (
   OIDS=FALSE
 );
 
-CREATE TABLE "public.music genres" (
+CREATE TABLE "music genres" (
 	"id" serial NOT NULL,
 	"music_id" integer NOT NULL,
 	"genre_id" integer NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE "public.music genres" (
   OIDS=FALSE
 );
 
-CREATE TABLE "public.music_ratings" (
+CREATE TABLE "music_ratings" (
 	"id" serial NOT NULL,
 	"music_id" integer NOT NULL,
 	"rating" integer NOT NULL,
