@@ -20,6 +20,10 @@ const createGenre = async (req, res) => {
   res.status(201).send('Gênero criado');
 };
 
-const getGenres = async () => {};
+const getGenres = async (req, res) => {
+  const genres = await genreService.getGenres();
 
-export { createGenre };
+  return res.send(genres);
+};
+
+export { createGenre, getGenres };
