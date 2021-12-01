@@ -17,7 +17,7 @@ const createGenre = async (req, res) => {
 
   if (!success) return res.status(403).send('Esse gênero já existe');
 
-  res.status(200).send('Gênero criado');
+  res.status(201).send('Gênero criado');
 };
 
 export { createGenre };
