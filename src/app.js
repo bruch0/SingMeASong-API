@@ -7,6 +7,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.route('/genres').post(genreController.createGenre);
+app
+  .route('/genres')
+  .post(genreController.createGenre)
+  .get(genreController.getGenres);
 
 export default app;
