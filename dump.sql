@@ -16,7 +16,7 @@ CREATE TABLE "musics" (
   OIDS=FALSE
 );
 
-CREATE TABLE "music genres" (
+CREATE TABLE "music_genres" (
 	"id" serial NOT NULL,
 	"music_id" integer NOT NULL,
 	"genre_id" integer NOT NULL,
