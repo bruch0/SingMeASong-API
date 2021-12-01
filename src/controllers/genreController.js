@@ -3,7 +3,12 @@ import * as genreService from '../services/genreService.js';
 const createGenre = async (req, res) => {
   const { name } = req.body;
 
-  const success = genreService.createGenre({ name });
+  if (!name)
+    return res
+      .status(400)
+      .send('Você deve enviar um objeto no padrão {name: nomeDoGenero}');
+
+  const success = await genreService.createGenre({ name });
 
   if (success === -1)
     return res
