@@ -20,4 +20,6 @@ const createGenre = async (req, res) => {
   res.status(201).send('Gênero criado');
 };
 
+const getGenres = async () => {};
+
 export { createGenre };
