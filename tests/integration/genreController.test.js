@@ -57,3 +57,11 @@ describe('POST /genres', () => {
     expect(result.status).toEqual(403);
   });
 });
+
+describe('GET /genres', () => {
+  it('should return status 200', async () => {
+    const result = await request.get('/genres');
+
+    expect(result.status).toEqual(200);
+  });
+});
