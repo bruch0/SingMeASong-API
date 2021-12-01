@@ -15,6 +15,8 @@ const createGenre = async (req, res) => {
       .status(400)
       .send('Gênero inválido, insira um gênero entre 3 e 20 caractéres');
 
+  if (!success) return res.status(403).send('Esse gênero já existe');
+
   res.status(200).send('Gênero criado');
 };
 

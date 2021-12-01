@@ -10,6 +10,12 @@ const createGenre = async ({ name }) => {
     letter.toUpperCase()
   );
 
+  const genreExists = await genreRepository.genreExists({
+    name: capitalizedName,
+  });
+
+  if (genreExists) return 0;
+
   await genreRepository.createGenre({ name: capitalizedName });
 
   return 1;
