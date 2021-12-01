@@ -6,11 +6,10 @@ module.exports = {
   },
   extends: ['airbnb-base', 'prettier'],
   parserOptions: {
-    ecmaVersion: 12,
+    ecmaVersion: 13,
     sourceType: 'module',
   },
   rules: {
-    'import/extensions': ['error', { js: 'ignorePackages' }],
-    'no-await-in-loop': 'ignore',
+    'import/extensions': ['ignorePackages'],
   },
 };
