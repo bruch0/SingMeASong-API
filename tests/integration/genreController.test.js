@@ -51,9 +51,17 @@ describe('POST /genres', () => {
     expect(result.status).toEqual(201);
   });
 
-  it('should return status 403 on valid registered genre', async () => {
+  it('should return status 409 on valid registered genre', async () => {
     const result = await request.post('/genres').send(validBody);
 
-    expect(result.status).toEqual(403);
+    expect(result.status).toEqual(409);
+  });
+});
+
+describe('GET /genres', () => {
+  it('should return status 200', async () => {
+    const result = await request.get('/genres');
+
+    expect(result.status).toEqual(200);
   });
 });
