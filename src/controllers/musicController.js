@@ -15,7 +15,8 @@ const createMusic = async (req, res, next) => {
 
     return res.status(200).send('Música registrada com sucesso');
   } catch (error) {
-    if (error.name === 'invalidUrl') return res.status(400).send(error.message);
+    if (error.name === 'invalidBody')
+      return res.status(400).send(error.message);
     if (error.name === 'conflictMusic')
       return res.status(409).send(error.message);
     if (error.name === 'genreNotFound')
@@ -31,6 +32,7 @@ const getRecommendation = async (req, res, next) => {
 
     return res.status(200).send(music);
   } catch (error) {
+    if (error.name === 'noMusics') return res.status(404).send(error.message);
     next(error);
   }
 };
