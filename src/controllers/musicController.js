@@ -37,4 +37,19 @@ const getRecommendation = async (req, res, next) => {
   }
 };
 
-export { createMusic, getRecommendation };
+const getTopMusics = async (req, res, next) => {
+  const { limit } = req.params;
+
+  if (!limit || limit < 1)
+    return res.status(400).send('Insira um limite válido');
+
+  try {
+    const musics = await musicService.getTopMusics({ limit });
+
+    return res.send(musics);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { createMusic, getRecommendation, getTopMusics };
