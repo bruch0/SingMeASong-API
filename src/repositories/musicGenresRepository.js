@@ -9,4 +9,12 @@ const getMusicGenres = async ({ musicId }) => {
   return genres.rows;
 };
 
-export { getMusicGenres };
+const getAllMusicGenres = async () => {
+  const genres = await connection.query(
+    'SELECT music_genres.*, genres.name FROM music_genres JOIN genres ON music_genres.genre_id = genres.id'
+  );
+
+  return genres.rows;
+};
+
+export { getMusicGenres, getAllMusicGenres };
