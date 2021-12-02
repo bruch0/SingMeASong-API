@@ -72,4 +72,26 @@ const getRecommendation = async () => {
     : { ...musics[index], genres: musicGenres, youtubeLink };
 };
 
-export { createMusic, getRecommendation };
+const getTopMusics = async ({ limit }) => {
+  const musics = await musicRepository.getTopMusics({ limit });
+  const allMusicGenres = await musicGenresRepository.getAllMusicGenres();
+
+  const topMusics = musics.map((music) => {
+    const musicGenres = allMusicGenres.filter(
+      (musicGenre) => musicGenre.music_id === music.id
+    );
+
+    const formatedMusicGenre = musicGenres.map((musicGenre) => {
+      return { id: musicGenre.genre_id, name: musicGenre.name };
+    });
+
+    const youtubeLink = music.link;
+    delete music.link;
+
+    return { ...music, genres: formatedMusicGenre, youtubeLink };
+  });
+
+  return topMusics;
+};
+
+export { createMusic, getRecommendation, getTopMusics };
