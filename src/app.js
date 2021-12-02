@@ -1,4 +1,5 @@
 import express from 'express';
+import 'express-group-routes';
 import cors from 'cors';
 
 import databaseError from './middlewares/databaseError.js';
@@ -11,12 +12,18 @@ app.use(cors());
 
 app
   .route('/genres')
-  .post(genreController.createGenre)
-  .get(genreController.getGenres);
+  .get(genreController.getGenres)
+  .post(genreController.createGenre);
 
 app.post('/recommendations', musicController.createMusic);
 
-app.route('/recommendations/random').get(musicController.getRecommendation);
+app.group('/recommendations', (router) => {
+  router.get('/random', musicController.getRecommendation);
+});
+
+// app.get('/recommendations/random', musicController.getRecommendation);
+
+app.get('/recommendations/top/random');
 
 app.use(databaseError);
 
