@@ -1,9 +1,9 @@
-class InvalidMusic extends Error {
+class InvalidBody extends Error {
   constructor() {
     super(
       'O nome da música deve ter entre 3 e 20 caractéres, o link do youtube deve ser válido e deve ser escolhido no mínimo um id de gênero acima de 0'
     );
-    this.name = 'invalidUrl';
+    this.name = 'invalidBody';
   }
 }
 
@@ -21,4 +21,11 @@ class GenreNotFound extends Error {
   }
 }
 
-export { InvalidMusic, ConflictMusic, GenreNotFound };
+class NoMusics extends Error {
+  constructor() {
+    super('Não há nenhuma música ainda, por que você não recomenda alguma?');
+    this.name = 'noMusics';
+  }
+}
+
+export { InvalidBody, ConflictMusic, GenreNotFound, NoMusics };
