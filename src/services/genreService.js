@@ -1,10 +1,11 @@
 import * as genreRepository from '../repositories/genreRepository.js';
 import * as genreSchema from '../schemas/genreSchema.js';
+import { InvalidGenre, ConflictGenre } from '../errors/genreErrors.js';
 
 const createGenre = async ({ name }) => {
   const validation = genreSchema.createGenre.validate({ name });
 
-  if (validation.error) return -1;
+  if (validation.error) throw new InvalidGenre();
 
   const capitalizedName = name.replace(/(^\w|\s\w)/g, (letter) =>
     letter.toUpperCase()
@@ -14,7 +15,7 @@ const createGenre = async ({ name }) => {
     name: capitalizedName,
   });
 
-  if (genreExists) return 0;
+  if (genreExists) throw new ConflictGenre();
 
   await genreRepository.createGenre({ name: capitalizedName });
 

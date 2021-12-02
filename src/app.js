@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 
+import databaseError from './middlewares/databaseError.js';
 import * as genreController from './controllers/genreController.js';
 import * as musicController from './controllers/musicController.js';
 
@@ -14,4 +15,7 @@ app
   .get(genreController.getGenres);
 
 app.route('/recommendations').post(musicController.createMusic);
+
+app.use(databaseError);
+
 export default app;
