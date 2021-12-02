@@ -19,9 +19,8 @@ app.post('/recommendations', musicController.createMusic);
 
 app.group('/recommendations', (router) => {
   router.get('/random', musicController.getRecommendation);
+  router.get('/top/:limit', musicController.getTopMusics);
 });
-
-// app.get('/recommendations/random', musicController.getRecommendation);
 
 app.get('/recommendations/top/random');
 
