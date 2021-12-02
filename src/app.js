@@ -14,7 +14,9 @@ app
   .post(genreController.createGenre)
   .get(genreController.getGenres);
 
-app.route('/recommendations').post(musicController.createMusic);
+app.post('/recommendations', musicController.createMusic);
+
+app.route('/recommendations/random').get(musicController.getRecommendation);
 
 app.use(databaseError);
 
