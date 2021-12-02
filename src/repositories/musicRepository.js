@@ -27,4 +27,10 @@ const createMusic = async ({ name, link, genres }) => {
   return true;
 };
 
-export { musicExists, createMusic };
+const getMusics = async () => {
+  const musics = await connection.query('SELECT * FROM musics');
+
+  return musics.rows;
+};
+
+export { musicExists, createMusic, getMusics };
