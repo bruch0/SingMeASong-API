@@ -34,3 +34,25 @@ describe('GET /recommendations/random', () => {
     expect(result.status).toEqual(404);
   });
 });
+
+describe('GET /recommendations/top/:amount', () => {
+  it('should return status 400 when the amount is smaller than 0', async () => {
+    const result = await request.get('/recommendations/top/-1');
+
+    expect(result.status).toEqual(400);
+  });
+
+  it('should return status 400 when the amount is 0', async () => {
+    const result = await request.get('/recommendations/top/0');
+
+    expect(result.status).toEqual(400);
+  });
+
+  it('should return status 200 when the amount is greater than 0', async () => {
+    const result = await request.get(
+      `/recommendations/top/${faker.datatype.number()}`
+    );
+
+    expect(result.status).toEqual(200);
+  });
+});

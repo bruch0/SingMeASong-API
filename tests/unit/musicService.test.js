@@ -174,3 +174,50 @@ describe('music Service register recommendation', () => {
     expect(result).toEqual(1);
   });
 });
+
+describe('music Service top recommendations', () => {
+  jest.spyOn(musicGenresRepository, 'getMusicGenres').mockImplementation(() => {
+    return {
+      id: faker.datatype.number(),
+      name: faker.music.genre(),
+    };
+  });
+
+  it('should throw an error when there is no musics in the database', async () => {
+    jest.spyOn(musicRepository, 'getTopMusics').mockImplementationOnce(() => [
+      {
+        id: faker.datatype.number(),
+        name: faker.datatype.string(),
+        link: faker.internet.url(),
+        score: faker.datatype.number(),
+      },
+    ]);
+
+    jest
+      .spyOn(musicGenresRepository, 'getAllMusicGenres')
+      .mockImplementationOnce(() => [
+        {
+          id: faker.datatype.number(),
+          music_id: faker.datatype.number(),
+          genre_id: faker.datatype.number(),
+          name: faker.music.genre(),
+        },
+      ]);
+
+    const result = await musicService.getTopMusics({
+      limit: faker.datatype.number(),
+    });
+
+    const object = result[0];
+
+    expect(object).toEqual(
+      expect.objectContaining({
+        name: expect.any(String),
+        youtubeLink: expect.any(String),
+        id: expect.any(Number),
+        score: expect.any(Number),
+        genres: expect.any(Object),
+      })
+    );
+  });
+});
