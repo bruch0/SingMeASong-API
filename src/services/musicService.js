@@ -1,15 +1,20 @@
 import * as musicSchema from '../schemas/musicSchema.js';
 import * as genreRepository from '../repositories/genreRepository.js';
 import * as musicRepository from '../repositories/musicRepository.js';
+import {
+  InvalidMusic,
+  ConflictMusic,
+  GenreNotFound,
+} from '../errors/musicErrors.js';
 
 const createMusic = async ({ name, link, genres }) => {
   const validation = musicSchema.createMusic.validate({ name, link, genres });
 
-  if (validation.error) return -2;
+  if (validation.error) throw new InvalidMusic();
 
   const alreadyExists = await musicRepository.musicExists({ link });
 
-  if (alreadyExists) return -1;
+  if (alreadyExists) throw new ConflictMusic();
 
   const allGenres = await genreRepository.getGenres();
   const totalGenres = allGenres.length;
@@ -22,7 +27,7 @@ const createMusic = async ({ name, link, genres }) => {
   const checkGenres = genres.map((genre) => genreIds.includes(Number(genre)));
   const invalidGenres = checkGenres.includes(false);
 
-  if (invalidGenres) return 0;
+  if (invalidGenres) throw new GenreNotFound();
 
   await musicRepository.createMusic({ name, link, genres });
 
