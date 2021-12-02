@@ -4,4 +4,8 @@ const clearGenres = async () => {
   await connection.query('DELETE FROM genres');
 };
 
-export { clearGenres };
+const clearMusics = async () => {
+  await connection.query('TRUNCATE musics CASCADE');
+};
+
+export { clearGenres, clearMusics };
