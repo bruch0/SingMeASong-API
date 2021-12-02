@@ -1,6 +1,7 @@
 import * as musicSchema from '../schemas/musicSchema.js';
 import * as genreRepository from '../repositories/genreRepository.js';
 import * as musicRepository from '../repositories/musicRepository.js';
+import * as musicGenresRepository from '../repositories/musicGenresRepository.js';
 import {
   InvalidMusic,
   ConflictMusic,
@@ -34,4 +35,32 @@ const createMusic = async ({ name, link, genres }) => {
   return 1;
 };
 
-export { createMusic };
+const getRecommendation = async () => {
+  const randomChance = () => Math.floor(Math.random() * 10) > 3;
+  const randomIndex = (length) => Math.floor(Math.random() * length);
+
+  const musics = await musicRepository.getMusics();
+  let filteredMusics;
+  let index = randomIndex(musics.length);
+
+  const lookForWellRated = randomChance();
+
+  if (lookForWellRated) {
+    filteredMusics = musics.filter((music) => music.score > 10);
+  } else {
+    filteredMusics = musics.filter((music) => music.score < 10);
+  }
+
+  if (filteredMusics.length) {
+    index = randomIndex(filteredMusics.length);
+  }
+
+  const musicId = filteredMusics[index].id;
+  const musicGenres = await musicGenresRepository.getMusicGenres({ musicId });
+
+  return filteredMusics
+    ? { ...filteredMusics[index], genres: musicGenres }
+    : { ...musics[index], genres: musicGenres };
+};
+
+export { createMusic, getRecommendation };
