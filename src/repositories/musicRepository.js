@@ -33,4 +33,13 @@ const getMusics = async () => {
   return musics.rows;
 };
 
-export { musicExists, createMusic, getMusics };
+const getTopMusics = async ({ limit }) => {
+  const musics = await connection.query(
+    'SELECT * FROM musics ORDER BY score DESC LIMIT $1',
+    [limit]
+  );
+
+  return musics.rows;
+};
+
+export { musicExists, createMusic, getMusics, getTopMusics };
