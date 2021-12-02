@@ -1,7 +1,7 @@
 import joi from 'joi';
 
 const createMusic = joi.object({
-  name: joi.string().required().min(3).max(20),
+  name: joi.string().required().min(3).max(30),
   link: joi
     .string()
     .required()
