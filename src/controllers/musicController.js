@@ -25,4 +25,14 @@ const createMusic = async (req, res, next) => {
   }
 };
 
-export { createMusic };
+const getRecommendation = async (req, res, next) => {
+  try {
+    const music = await musicService.getRecommendation();
+
+    return res.status(200).send(music);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { createMusic, getRecommendation };
