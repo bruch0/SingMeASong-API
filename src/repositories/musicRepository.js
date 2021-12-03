@@ -42,4 +42,31 @@ const getTopMusics = async ({ limit }) => {
   return musics.rows;
 };
 
-export { musicExists, createMusic, getMusics, getTopMusics };
+const getMusicScore = async ({ musicId }) => {
+  const score = await connection.query('SELECT * FROM musics WHERE id = $1', [
+    musicId,
+  ]);
+
+  return score.rowCount ? { musicScore: score.rows[0].score } : false;
+};
+
+const removeMusic = async ({ musicId }) => {
+  await connection.query('DELETE FROM musics WHERE id = $1', [musicId]);
+};
+
+const updateMusicScore = async ({ newScore, musicId }) => {
+  await connection.query('UPDATE musics SET score = $1 WHERE id = $2', [
+    newScore,
+    musicId,
+  ]);
+};
+
+export {
+  musicExists,
+  createMusic,
+  getMusics,
+  getTopMusics,
+  getMusicScore,
+  removeMusic,
+  updateMusicScore,
+};
