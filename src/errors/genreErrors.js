@@ -12,4 +12,11 @@ class ConflictGenre extends Error {
   }
 }
 
-export { InvalidGenre, ConflictGenre };
+class NoGenres extends Error {
+  constructor() {
+    super('Não existem gêneros, que tal criar um?');
+    this.name = 'noGenres';
+  }
+}
+
+export { InvalidGenre, ConflictGenre, NoGenres };
