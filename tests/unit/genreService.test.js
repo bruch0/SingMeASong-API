@@ -2,7 +2,6 @@ import faker from 'faker';
 
 import * as genreService from '../../src/services/genreService.js';
 import * as genreRepository from '../../src/repositories/genreRepository.js';
-import { InvalidGenre, ConflictGenre } from '../../src/errors/genreErrors.js';
 
 describe('genre Service', () => {
   jest.spyOn(genreRepository, 'createGenre').mockImplementation(() => true);
