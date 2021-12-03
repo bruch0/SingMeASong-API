@@ -1,6 +1,10 @@
 import * as genreRepository from '../repositories/genreRepository.js';
 import * as genreSchema from '../validations/genreSchema.js';
-import { InvalidGenre, ConflictGenre } from '../errors/genreErrors.js';
+import {
+  InvalidGenre,
+  ConflictGenre,
+  NoGenres,
+} from '../errors/genreErrors.js';
 
 const createGenre = async ({ name }) => {
   const validation = genreSchema.createGenre.validate({ name });
@@ -23,7 +27,9 @@ const createGenre = async ({ name }) => {
 };
 
 const getGenres = async () => {
-  const genres = genreRepository.getGenres();
+  const genres = await genreRepository.getGenres();
+
+  if (genres.length === 0) throw new NoGenres();
 
   return genres;
 };

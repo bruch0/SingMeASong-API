@@ -29,6 +29,8 @@ const getGenres = async (req, res, next) => {
 
     return res.send(genres);
   } catch (error) {
+    if (error.name === 'noGenres') return res.status(404).send(error.message);
+
     next(error);
   }
 };
