@@ -4,11 +4,26 @@ import app from '../../src/app.js';
 import faker from 'faker';
 
 import { clearGenres } from '../utils/clearDatabase.js';
-import * as genreController from '../../src/controllers/genreController.js';
+import { createGenre } from '../factories/genreFactory.js';
 
 const request = supertest(app);
 
 beforeAll(clearGenres);
+
+describe('GET /genres', () => {
+  it('should return status 404 when there is no genres', async () => {
+    const result = await request.get('/genres');
+
+    expect(result.status).toEqual(404);
+  });
+
+  it('should return status 200', async () => {
+    await createGenre();
+    const result = await request.get('/genres');
+
+    expect(result.status).toEqual(200);
+  });
+});
 
 describe('POST /genres', () => {
   const validBody = {
@@ -55,13 +70,5 @@ describe('POST /genres', () => {
     const result = await request.post('/genres').send(validBody);
 
     expect(result.status).toEqual(409);
-  });
-});
-
-describe('GET /genres', () => {
-  it('should return status 200', async () => {
-    const result = await request.get('/genres');
-
-    expect(result.status).toEqual(200);
   });
 });

@@ -1,17 +1,16 @@
 import express from 'express';
 import cors from 'cors';
 
+import genreRoute from './routes/genreRoute.js';
+import musicRoute from './routes/musicRoute.js';
 import databaseError from './middlewares/databaseError.js';
-import * as genreController from './controllers/genreController.js';
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-app
-  .route('/genres')
-  .post(genreController.createGenre)
-  .get(genreController.getGenres);
+app.use(genreRoute);
+app.use(musicRoute);
 
 app.use(databaseError);
 
