@@ -5,10 +5,10 @@ import * as musicGenresRepository from '../repositories/musicGenresRepository.js
 import {
   InvalidBody,
   ConflictMusic,
-  GenreNotFound,
   NoMusics,
   MusicNotFound,
 } from '../errors/musicErrors.js';
+import { GenreNotFound } from '../errors/genreErrors.js';
 
 const createMusic = async ({ name, link, genres }) => {
   const validation = musicSchema.createMusic.validate({ name, link, genres });
@@ -109,4 +109,44 @@ const voteMusic = async ({ operation, musicId }) => {
   return await musicRepository.updateMusicScore({ newScore, musicId });
 };
 
-export { createMusic, getRecommendation, getTopMusics, voteMusic };
+const getRecommendationByGenre = async ({ genreId }) => {
+  const randomIndex = (length) => Math.floor(Math.random() * length);
+
+  const allMusicGenres = await musicGenresRepository.getAllMusicGenres();
+  if (!allMusicGenres.length) throw new NoMusics();
+
+  const musicsIds = allMusicGenres.filter(
+    (musicGenre) => musicGenre.genre_id === Number(genreId)
+  );
+
+  const musics = await musicRepository.getMusics();
+
+  const index = randomIndex(musicsIds.length);
+
+  const musicId = musicsIds[index].music_id;
+
+  const music = musics.filter((music) => music.id === musicId)[0];
+
+  music.youtubeLink = music.link;
+  delete music.link;
+
+  const musicGenres = allMusicGenres.filter(
+    (musicGenre) => musicGenre.music_id === music.id
+  );
+
+  const genres = musicGenres.map((musicGenre) => {
+    return { id: musicGenre.genre_id, name: musicGenre.name };
+  });
+
+  music.genres = genres;
+
+  return music;
+};
+
+export {
+  createMusic,
+  getRecommendation,
+  getTopMusics,
+  voteMusic,
+  getRecommendationByGenre,
+};
