@@ -106,18 +106,23 @@ const voteMusic = async ({ operation, musicId }) => {
 
   if (newScore < -5) return await musicRepository.removeMusic({ musicId });
 
-  return await musicRepository.updateMusicScore({ newScore, musicId });
+  await musicRepository.updateMusicScore({ newScore, musicId });
+
+  return 1;
 };
 
 const getRecommendationByGenre = async ({ genreId }) => {
   const randomIndex = (length) => Math.floor(Math.random() * length);
 
   const allMusicGenres = await musicGenresRepository.getAllMusicGenres();
+
   if (!allMusicGenres.length) throw new NoMusics();
 
   const musicsIds = allMusicGenres.filter(
     (musicGenre) => musicGenre.genre_id === Number(genreId)
   );
+
+  if (!musicsIds.length) throw new GenreNotFound();
 
   const musics = await musicRepository.getMusics();
 
