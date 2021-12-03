@@ -7,6 +7,7 @@ import {
   ConflictMusic,
   GenreNotFound,
   NoMusics,
+  MusicNotFound,
 } from '../errors/musicErrors.js';
 
 const createMusic = async ({ name, link, genres }) => {
@@ -94,4 +95,18 @@ const getTopMusics = async ({ limit }) => {
   return topMusics;
 };
 
-export { createMusic, getRecommendation, getTopMusics };
+const voteMusic = async ({ operation, musicId }) => {
+  const musicExists = await musicRepository.getMusicScore({ musicId });
+
+  if (!musicExists) throw new MusicNotFound();
+
+  const { musicScore } = musicExists;
+
+  const newScore = musicScore + operation;
+
+  if (newScore < -5) return await musicRepository.removeMusic({ musicId });
+
+  return await musicRepository.updateMusicScore({ newScore, musicId });
+};
+
+export { createMusic, getRecommendation, getTopMusics, voteMusic };
