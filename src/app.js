@@ -1,28 +1,16 @@
 import express from 'express';
-import 'express-group-routes';
 import cors from 'cors';
 
+import genreRoute from './routes/genreRoute.js';
+import musicRoute from './routes/musicRoute.js';
 import databaseError from './middlewares/databaseError.js';
-import * as genreController from './controllers/genreController.js';
-import * as musicController from './controllers/musicController.js';
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-app
-  .route('/genres')
-  .get(genreController.getGenres)
-  .post(genreController.createGenre);
-
-app.post('/recommendations', musicController.createMusic);
-
-app.group('/recommendations', (router) => {
-  router.get('/random', musicController.getRecommendation);
-  router.get('/top/:limit', musicController.getTopMusics);
-});
-
-app.get('/recommendations/top/random');
+app.use(genreRoute);
+app.use(musicRoute);
 
 app.use(databaseError);
 
