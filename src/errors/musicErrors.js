@@ -28,4 +28,11 @@ class NoMusics extends Error {
   }
 }
 
-export { InvalidBody, ConflictMusic, GenreNotFound, NoMusics };
+class MusicNotFound extends Error {
+  constructor() {
+    super('Não há nenhuma música com esse id');
+    this.name = 'musicNotFound';
+  }
+}
+
+export { InvalidBody, ConflictMusic, GenreNotFound, NoMusics, MusicNotFound };
