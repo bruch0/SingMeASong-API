@@ -1,5 +1,5 @@
 import * as genreRepository from '../repositories/genreRepository.js';
-import * as genreSchema from '../schemas/genreSchema.js';
+import * as genreSchema from '../validations/genreSchema.js';
 import { InvalidGenre, ConflictGenre } from '../errors/genreErrors.js';
 
 const createGenre = async ({ name }) => {

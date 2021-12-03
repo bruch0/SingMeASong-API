@@ -1,4 +1,4 @@
-import * as musicSchema from '../schemas/musicSchema.js';
+import * as musicSchema from '../validations/musicSchema.js';
 import * as genreRepository from '../repositories/genreRepository.js';
 import * as musicRepository from '../repositories/musicRepository.js';
 import * as musicGenresRepository from '../repositories/musicGenresRepository.js';
