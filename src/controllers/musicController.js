@@ -86,7 +86,8 @@ const getRecommendationByGenre = async (req, res, next) => {
     return res.send(musics);
   } catch (error) {
     if (error.name === 'noMusics') return res.status(404).send(error.message);
-
+    if (error.name === 'genreNotFound')
+      return res.status(404).send(error.message);
     next(error);
   }
 };
