@@ -8,6 +8,10 @@ router.group('/recommendations', (route) => {
   route.get('/random', musicController.getRecommendation);
   route.get('/top/:limit', musicController.getTopMusics);
   route.get('/top/random');
+  route.get(
+    '/genres/:genreId/random',
+    musicController.getRecommendationByGenre
+  );
   route.post('', musicController.createMusic);
   route.post('/:musicId/upvote', musicController.voteMusic);
   route.post('/:musicId/downvote', musicController.voteMusic);
