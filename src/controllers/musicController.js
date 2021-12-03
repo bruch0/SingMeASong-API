@@ -52,4 +52,26 @@ const getTopMusics = async (req, res, next) => {
   }
 };
 
-export { createMusic, getRecommendation, getTopMusics };
+const voteMusic = async (req, res, next) => {
+  const { path } = req;
+  const { musicId } = req.params;
+  const mode = path.split('/')[2];
+
+  if (!musicId || musicId < 1)
+    return res.status(400).send('Insira um id válido');
+
+  const operation = mode === 'upvote' ? 1 : -1;
+
+  try {
+    await musicService.voteMusic({ operation, musicId });
+
+    return res.sendStatus(200);
+  } catch (error) {
+    if (error.name === 'musicNotFound')
+      return res.status(404).send(error.message);
+
+    next(error);
+  }
+};
+
+export { createMusic, getRecommendation, getTopMusics, voteMusic };
