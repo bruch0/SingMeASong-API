@@ -11,7 +11,6 @@ CREATE TABLE "musics" (
 	"name" varchar(255) NOT NULL,
 	"link" varchar(255) NOT NULL,
 	"score" integer NOT NULL,
-	ON DELETE CASCADE
 	CONSTRAINT "musics_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
