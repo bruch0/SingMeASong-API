@@ -54,8 +54,9 @@ POST /genres
 
 ### Get all musics by genre
 
-````
+```
 GET /genres/:genreId
+```
 
 #### Possible response status
 
@@ -68,23 +69,25 @@ GET /genres/:genreId
 
 ```jsx
 {
-		"id": genreId,
-		"name": genreName,
-		"score": totalGenreScore,
-		"recommendations": [
-			{
-				"id": recommendationId,
-				"name": recommendationName,
-				"genres": [
-					{
-						"id": genreId
-						"name": genreName,
-					},
-				],
-				"youtubeLink": recommendationLink,
-				"score": recommendationScore
-			},
-		]
+  "id": genreId,
+  "name": genreName,
+  "score": totalGenreScore,
+  "recommendations": 
+    [
+      {
+        "id": recommendationId,
+        "name": recommendationName,
+        "genres": 
+	  [
+            {
+              "id": genreId
+              "name": genreName,
+            },
+          ],
+        "youtubeLink": recommendationLink,
+        "score": recommendationScore
+      },
+    ]
 }
 ```
 
@@ -107,16 +110,17 @@ GET /recommendation/random
 
 ```jsx
 {
-	"id": recommendationId,
-	"name": recommendationName,
-	"genres": [
-		{
-			"id": genreId
-			"name": genreName,
-		},
-	],
-	"youtubeLink": recommendationLink,
-	"score": recommendationScore
+  "id": recommendationId,
+  "name": recommendationName,
+  "genres": 
+    [
+      {
+        "id": genreId
+        "name": genreName,
+      },
+    ],
+  "youtubeLink": recommendationLink,
+  "score": recommendationScore
 }
 ```
 
@@ -139,18 +143,19 @@ GET /recommendation/top/:amount
 
 ```jsx
 [
-	{
-	"id": recommendationId,
-	"name": recommendationName,
-	"genres": [
-		{
-			"id": genreId
-			"name": genreName,
-		},
-	],
-	"youtubeLink": recommendationLink,
-	"score": recommendationScore
-	},
+  {
+    "id": recommendationId,
+    "name": recommendationName,
+    "genres": 
+      [
+        {
+          "id": genreId
+          "name": genreName,
+        },
+      ],
+    "youtubeLink": recommendationLink,
+    "score": recommendationScore
+  },
 ]
 ```
 
@@ -174,16 +179,17 @@ GET /recommendation/genres/:genreId/random
 
 ```jsx
 {
-	"id": recommendationId,
-	"name": recommendationName,
-	"genres": [
-		{
-			"id": genreId
-			"name": genreName,
-		},
-	],
-	"youtubeLink": recommendationLink,
-	"score": recommendationScore
+  "id": recommendationId,
+  "name": recommendationName,
+  "genres": 
+    [
+      {
+        "id": genreId
+	"name": genreName,
+      },
+    ],
+  "youtubeLink": recommendationLink,
+  "score": recommendationScore
 }
 ```
 
@@ -334,7 +340,7 @@ npm run test
 
 <div align="center">
   
-  [![Gmail Badge](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:YOUR GMAIL)
-  [![Linkedin Badge](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](YOUR LINKEDIN ACCOUNT)
+  [![Gmail Badge](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:lucas.bruch0@gmail.com)
+  [![Linkedin Badge](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/lucas-bruch/)
   
 </div>
