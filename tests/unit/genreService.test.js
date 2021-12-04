@@ -2,8 +2,9 @@ import faker from 'faker';
 
 import * as genreService from '../../src/services/genreService.js';
 import * as genreRepository from '../../src/repositories/genreRepository.js';
+import { NoGenres } from '../../src/errors/genreErrors.js';
 
-describe('genre Service', () => {
+describe('genre Service create genre', () => {
   jest.spyOn(genreRepository, 'createGenre').mockImplementation(() => true);
 
   it('should throw an error for name with a length smaller than 3', async () => {
@@ -80,5 +81,31 @@ describe('genre Service', () => {
     } catch (error) {
       expect(error.name).toEqual('conflictGenre');
     }
+  });
+});
+
+describe('genre Service get genres', () => {
+  it('should throw an error when no genres are found', async () => {
+    jest.spyOn(genreRepository, 'getGenres').mockImplementationOnce(() => []);
+
+    const promise = genreService.getGenres();
+
+    await expect(promise).rejects.toThrow(NoGenres);
+  });
+
+  it('should return an array of genres if at least one genre is registered', async () => {
+    7;
+    const name = faker.music.genre();
+
+    jest.spyOn(genreRepository, 'getGenres').mockImplementationOnce(() => [
+      {
+        id: 1,
+        name,
+      },
+    ]);
+
+    const genres = await genreService.getGenres();
+
+    expect(genres).toEqual([{ id: 1, name }]);
   });
 });
