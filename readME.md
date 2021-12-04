@@ -1,36 +1,57 @@
-# Repo name API
+# Sing Me A Song API
 
 ## Documentation 🧾
 
-### Function
+### Get genres
 
 ```
-POST /route
+GET /genres
+```
+
+#### Possible response status
+
+```bash
+- 404: There are no genres registered
+- 200: Success
+```
+
+</br>
+
+### Create genre
+
+```
+POST /genres
 ```
 
 #### Expected body
 
 ```jsx
 {
-  property: Type, rules
-}
-```
-
-#### Expected headers
-
-```bash
-{
-  headers: {
-    property: name
-  }
+  name: String, at least 3 characters, maximum 20 characters
 }
 ```
 
 #### Possible response status
 
 ```bash
-- statusCode: possible error
+- 400: Your genre name is invalid
+- 409: This genre is already registered
+- 201: Success
 ```
+
+</br>
+
+### Get all musics by genre
+
+````
+GET /genres/:genreId
+
+#### Possible response status
+
+```bash
+- 404: There is no musics for this genre is the genre does not exist
+- 200: Success
+````
 
 </br>
 
