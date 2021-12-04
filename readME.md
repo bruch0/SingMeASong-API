@@ -1,35 +1,249 @@
-# Repo name API
+# Sing Me A Song API
 
 ## Documentation 🧾
 
-### Function
+### Get genres
 
 ```
-POST /route
+GET /genres
+```
+
+#### Possible response status
+
+```bash
+- 404: There are no genres registered
+- 200: Success
+```
+
+#### What you will receive from this route
+
+```jsx
+[
+  {
+    id: genreId,
+    name: genreName,
+  },
+];
+```
+
+</br>
+
+### Create genre
+
+```
+POST /genres
 ```
 
 #### Expected body
 
 ```jsx
 {
-  property: Type, rules
-}
-```
-
-#### Expected headers
-
-```bash
-{
-  headers: {
-    property: name
-  }
+  name: String, at least 3 characters, maximum 20 characters
 }
 ```
 
 #### Possible response status
 
 ```bash
-- statusCode: possible error
+- 400: Your genre name is invalid
+- 409: This genre is already registered
+- 201: Success
+```
+
+</br>
+
+### Get all musics by genre
+
+````
+GET /genres/:genreId
+
+#### Possible response status
+
+```bash
+- 404: There is no musics for this genre is the genre does not exist
+- 200: Success
+````
+
+#### What you will receive from this route
+
+```jsx
+{
+		"id": genreId,
+		"name": genreName,
+		"score": totalGenreScore,
+		"recommendations": [
+			{
+				"id": recommendationId,
+				"name": recommendationName,
+				"genres": [
+					{
+						"id": genreId
+						"name": genreName,
+					},
+				],
+				"youtubeLink": recommendationLink,
+				"score": recommendationScore
+			},
+		]
+}
+```
+
+</br>
+
+### Get recommendation
+
+```
+GET /recommendation/random
+```
+
+#### Possible response status
+
+```bash
+- 404: There are no musics registered
+- 200: Success
+```
+
+#### What you will receive from this route
+
+```jsx
+{
+	"id": recommendationId,
+	"name": recommendationName,
+	"genres": [
+		{
+			"id": genreId
+			"name": genreName,
+		},
+	],
+	"youtubeLink": recommendationLink,
+	"score": recommendationScore
+}
+```
+
+</br>
+
+### Get top songs
+
+```
+GET /recommendation/top/:amount
+```
+
+#### Possible response status
+
+```bash
+- 400: You have not sent a amount or a smaller than 1
+- 200: Success
+```
+
+#### What you will receive from this route
+
+```jsx
+[
+	{
+	"id": recommendationId,
+	"name": recommendationName,
+	"genres": [
+		{
+			"id": genreId
+			"name": genreName,
+		},
+	],
+	"youtubeLink": recommendationLink,
+	"score": recommendationScore
+	},
+]
+```
+
+</br>
+
+### Get recommendation by genre
+
+```
+GET /recommendation/genres/:genreId/random
+```
+
+#### Possible response status
+
+```bash
+- 400: Invalid genreId
+- 404: The genre does not exist
+- 200: Success
+```
+
+#### What you will receive from this route
+
+```jsx
+{
+	"id": recommendationId,
+	"name": recommendationName,
+	"genres": [
+		{
+			"id": genreId
+			"name": genreName,
+		},
+	],
+	"youtubeLink": recommendationLink,
+	"score": recommendationScore
+}
+```
+
+</br>
+
+### Recommend song
+
+```
+POST /recommendations
+```
+
+#### Expected body
+
+```jsx
+{
+  name: String, at least 3 characters, maximum 30 characters,
+  genresId: Array, at least one genre must be listed,
+  youtubeLink: String, must be a valid youtube link
+}
+```
+
+#### Possible response status
+
+```bash
+- 400: You have sent a invalid body, check your params
+- 409: This music is already been recommended
+- 404: A genre you listed does not exist
+- 201: Success
+```
+
+</br>
+
+### Upvote song
+
+```
+POST /recommendations/:recommendationId/upvote
+```
+
+#### Possible response status
+
+```bash
+- 400: You have sent a invalid id
+- 404: The recommendation does not exist
+- 200: Success
+```
+
+</br>
+
+### Downvote song
+
+```
+POST /recommendations/:recommendationId/downvote
+```
+
+#### Possible response status
+
+```bash
+- 400: You have sent a invalid id
+- 404: The recommendation does not exist
+- 200: Success
 ```
 
 </br>
