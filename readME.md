@@ -15,6 +15,17 @@ GET /genres
 - 200: Success
 ```
 
+#### What you will receive from this route
+
+```jsx
+[
+  {
+    id: genreId,
+    name: genreName,
+  },
+];
+```
+
 </br>
 
 ### Create genre
@@ -52,6 +63,30 @@ GET /genres/:genreId
 - 404: There is no musics for this genre is the genre does not exist
 - 200: Success
 ````
+
+#### What you will receive from this route
+
+```jsx
+{
+		"id": genreId,
+		"name": genreName,
+		"score": totalGenreScore,
+		"recommendations": [
+			{
+				"id": recommendationId,
+				"name": recommendationName,
+				"genres": [
+					{
+						"id": genreId
+						"name": genreName,
+					},
+				],
+				"youtubeLink": recommendationLink,
+				"score": recommendationScore
+			},
+		]
+}
+```
 
 </br>
 
