@@ -46,6 +46,123 @@ describe('music Service random recommendation', () => {
   });
 });
 
+describe('music Service vote recommendation', () => {
+  it('should throw an error the music does not exists', async () => {
+    jest
+      .spyOn(musicRepository, 'getMusicScore')
+      .mockImplementation(() => false);
+
+    const body = {
+      operation: 1,
+      musicId: faker.datatype.number(),
+    };
+
+    try {
+      await musicService.voteMusic(body);
+    } catch (error) {
+      expect(error.name).toEqual('musicNotFound');
+    }
+  });
+
+  it('should return 1 when the music exists', async () => {
+    jest.spyOn(musicRepository, 'getMusicScore').mockImplementation(() => true);
+    jest
+      .spyOn(musicRepository, 'updateMusicScore')
+      .mockImplementation(() => true);
+
+    const body = {
+      operation: 1,
+      musicId: faker.datatype.number(),
+    };
+
+    const result = await musicService.voteMusic(body);
+    expect(result).toEqual(1);
+  });
+});
+
+describe('music Service random recommendation by genre', () => {
+  it('should throw an error the music does not exists', async () => {
+    jest
+      .spyOn(musicGenresRepository, 'getAllMusicGenres')
+      .mockImplementation(() => false);
+
+    const body = {
+      genreId: faker.datatype.number(),
+    };
+
+    try {
+      await musicService.getRecommendationByGenre(body);
+    } catch (error) {
+      expect(error.name).toEqual('noMusics');
+    }
+  });
+
+  it('should throw an error the genre is not found', async () => {
+    jest
+      .spyOn(musicGenresRepository, 'getAllMusicGenres')
+      .mockImplementation(() => [
+        {
+          id: faker.datatype.number(),
+          music_id: faker.datatype.number(),
+          genre_id: faker.datatype.number(),
+          name: faker.music.genre(),
+        },
+      ]);
+
+    const body = {
+      genreId: faker.datatype.number(),
+    };
+
+    try {
+      await musicService.getRecommendationByGenre(body);
+    } catch (error) {
+      expect(error.name).toEqual('genreNotFound');
+    }
+  });
+
+  it('should throw an error the genre is not found', async () => {
+    const genreId = faker.datatype.number();
+
+    jest
+      .spyOn(musicGenresRepository, 'getAllMusicGenres')
+      .mockImplementation(() => [
+        {
+          id: 1,
+          music_id: 1,
+          genre_id: genreId,
+          name: faker.music.genre(),
+        },
+      ]);
+
+    jest.spyOn(musicRepository, 'getMusics').mockImplementationOnce(() => {
+      return [
+        {
+          id: 1,
+          name: faker.datatype.string(),
+          link: `https://www.youtube.com/watch?v=${faker.lorem.word(11)}`,
+          score: faker.datatype.number(),
+        },
+      ];
+    });
+
+    const body = {
+      genreId: genreId,
+    };
+
+    const result = await musicService.getRecommendationByGenre(body);
+
+    expect(result).toEqual(
+      expect.objectContaining({
+        name: expect.any(String),
+        youtubeLink: expect.any(String),
+        id: expect.any(Number),
+        score: expect.any(Number),
+        genres: expect.any(Object),
+      })
+    );
+  });
+});
+
 describe('music Service register recommendation', () => {
   jest.spyOn(musicGenresRepository, 'getMusicGenres').mockImplementation(() => {
     return {

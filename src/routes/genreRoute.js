@@ -6,6 +6,7 @@ const router = new Router();
 
 router.group('/genres', (route) => {
   route.get('', genreController.getGenres);
+  route.get('/:genreId', genreController.getAllMusicsByGenre);
   route.post('', genreController.createGenre);
 });
 

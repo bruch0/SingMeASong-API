@@ -14,13 +14,6 @@ class ConflictMusic extends Error {
   }
 }
 
-class GenreNotFound extends Error {
-  constructor() {
-    super('Algum gênero não foi encontrado');
-    this.name = 'genreNotFound';
-  }
-}
-
 class NoMusics extends Error {
   constructor() {
     super('Não há nenhuma música ainda, por que você não recomenda alguma?');
@@ -35,4 +28,4 @@ class MusicNotFound extends Error {
   }
 }
 
-export { InvalidBody, ConflictMusic, GenreNotFound, NoMusics, MusicNotFound };
+export { InvalidBody, ConflictMusic, NoMusics, MusicNotFound };
