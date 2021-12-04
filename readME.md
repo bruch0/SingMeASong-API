@@ -251,18 +251,18 @@ POST /recommendations/:recommendationId/downvote
 ## How to run in your machine 🖥️
 
 ```
-git clone YOUR REPO LINK
+git clone https://github.com/bruch0/SingMeASong-API.git
 ```
 
 ```
-cd YOUR REPO
+cd SingMeASong-API
 ```
 
 ```
 npm i --force
 ```
 
-Create a .env.dev file and fill it using your environment variables following <a href="YOUR .ENV.EXAMPLE LINK ON GITHUB">this example</a>
+Create a .env.dev file and fill it using your environment variables following <a href="https://github.com/bruch0/SingMeASong-API/blob/main/.env.example">this example</a>
 
 ### In your terminal
 
@@ -275,25 +275,25 @@ psql
 ```
 
 ```
-CREATE DATABASE YOUR DATABASE NAME
+CREATE DATABASE singmeasong
 ```
 
 ```
-\c YOUR DATABASE NAME
+\c singmeasong
 ```
 
-Copy everything in the <a href="YOUR DUMP.SQL LINK ON GITHUB">dump.sql</a> file and paste on the terminal</br>
+Copy everything in the <a href="https://github.com/bruch0/SingMeASong-API/blob/main/dump.sql">dump.sql</a> file and paste on the terminal</br>
 You can not exit the postgres admin, and run
 
 ```
-npm run dev
+npm run start:dev
 ```
 
 </br>
 
 ## How to run the tests in your machine 🖥️
 
-Create a .env.test file and fill it using your environment variables following <a href="YOUR .ENV.EXAMPLE LINK ON GITHUB">this example</a>
+Create a .env.test file and fill it using your environment variables following <a href="https://github.com/bruch0/SingMeASong-API/blob/main/.env.example">this example</a>
 
 ### In your terminal
 
@@ -306,14 +306,14 @@ psql
 ```
 
 ```
-CREATE DATABASE YOUR DATABASE NAME_test;
+CREATE DATABASE singmeasong_test;
 ```
 
 ```
-\c YOUR DATABASE NAME_test
+\c singmeasong_test
 ```
 
-Copy everything in the <a href="YOUR DUMP.SQL LINK ON GITHUB">dump.sql</a> file and paste on the terminal</br>
+Copy everything in the <a href="https://github.com/bruch0/SingMeASong-API/blob/main/dump.sql">dump.sql</a> file and paste on the terminal</br>
 
 You can not exit the postgres admin, and run
 
