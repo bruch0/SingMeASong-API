@@ -74,4 +74,28 @@ const voteMusic = async (req, res, next) => {
   }
 };
 
-export { createMusic, getRecommendation, getTopMusics, voteMusic };
+const getRecommendationByGenre = async (req, res, next) => {
+  const { genreId } = req.params;
+
+  if (!genreId || genreId < 1)
+    return res.status(400).send('Insira um maior que um');
+
+  try {
+    const musics = await musicService.getRecommendationByGenre({ genreId });
+
+    return res.send(musics);
+  } catch (error) {
+    if (error.name === 'noMusics') return res.status(404).send(error.message);
+    if (error.name === 'genreNotFound')
+      return res.status(404).send(error.message);
+    next(error);
+  }
+};
+
+export {
+  createMusic,
+  getRecommendation,
+  getTopMusics,
+  voteMusic,
+  getRecommendationByGenre,
+};

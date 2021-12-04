@@ -19,4 +19,11 @@ class NoGenres extends Error {
   }
 }
 
-export { InvalidGenre, ConflictGenre, NoGenres };
+class GenreNotFound extends Error {
+  constructor() {
+    super('Algum gênero não foi encontrado');
+    this.name = 'genreNotFound';
+  }
+}
+
+export { InvalidGenre, ConflictGenre, NoGenres, GenreNotFound };
