@@ -35,4 +35,23 @@ const getGenres = async (req, res, next) => {
   }
 };
 
-export { createGenre, getGenres };
+const getAllMusicsByGenre = async (req, res, next) => {
+  const { genreId } = req.params;
+
+  if (!genreId || genreId < 1)
+    return res.status(400).send('Insira um id de gênero válido');
+
+  try {
+    const musics = await genreService.getAllMusicsByGenre({ genreId });
+
+    return res.send(musics);
+  } catch (error) {
+    if (error.name === 'noMusics') return res.status(404).send(error.message);
+    if (error.name === 'genreNotFound')
+      return res.status(404).send(error.message);
+
+    next(error);
+  }
+};
+
+export { createGenre, getGenres, getAllMusicsByGenre };
