@@ -21,4 +21,12 @@ const getGenres = async () => {
   return genres.rows;
 };
 
-export { genreExists, createGenre, getGenres };
+const getGenreNameById = async ({ genreId }) => {
+  const genre = await connection.query('SELECT * FROM genres WHERE id = $1', [
+    genreId,
+  ]);
+
+  return genre.rowCount ? genre.rows[0].name : false;
+};
+
+export { genreExists, createGenre, getGenres, getGenreNameById };
