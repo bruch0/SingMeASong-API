@@ -26,7 +26,7 @@ GET /genres
 ];
 ```
 
-</br>
+---
 
 ### Create genre
 
@@ -50,7 +50,7 @@ POST /genres
 - 201: Success
 ```
 
-</br>
+---
 
 ### Get all musics by genre
 
@@ -91,7 +91,7 @@ GET /genres/:genreId
 }
 ```
 
-</br>
+---
 
 ### Get recommendation
 
@@ -124,7 +124,7 @@ GET /recommendation/random
 }
 ```
 
-</br>
+---
 
 ### Get top songs
 
@@ -159,7 +159,7 @@ GET /recommendation/top/:amount
 ]
 ```
 
-</br>
+---
 
 ### Get recommendation by genre
 
@@ -193,7 +193,7 @@ GET /recommendation/genres/:genreId/random
 }
 ```
 
-</br>
+---
 
 ### Recommend song
 
@@ -220,7 +220,7 @@ POST /recommendations
 - 201: Success
 ```
 
-</br>
+---
 
 ### Upvote song
 
@@ -236,7 +236,7 @@ POST /recommendations/:recommendationId/upvote
 - 200: Success
 ```
 
-</br>
+---
 
 ### Downvote song
 
@@ -252,7 +252,7 @@ POST /recommendations/:recommendationId/downvote
 - 200: Success
 ```
 
-</br>
+---
 
 ## How to run in your machine 🖥️
 
@@ -332,7 +332,7 @@ npm run test
   
 ## Deployment 🚀
 
-<p align="center"><a  href="YOUR DEPLOYMENT LINK">You can check the server running on heroku here!</a></p>
+<p align="center"><a  href="https://sing-me-one-song.herokuapp.com/">You can check the server running on heroku here!</a></p>
 
 </br>
 
